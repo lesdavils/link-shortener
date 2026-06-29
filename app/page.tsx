@@ -52,7 +52,7 @@ export default function Home() {
 
       {/* Nav */}
       <nav className="flex items-center justify-between px-8 py-6 max-w-5xl mx-auto w-full">
-        <span className="text-sm font-semibold tracking-wide text-white">LinkShort</span>
+        <img src="/logo.png" alt="LinkShort" className="h-12" />
         <a
           href="https://github.com/lesdavils/link-shortener"
           target="_blank"
@@ -207,7 +207,7 @@ export default function Home() {
 
       <div className="h-px bg-[#1a1a1a] max-w-5xl mx-auto w-full" />
       <footer className="max-w-5xl mx-auto w-full px-8 py-5 flex items-center justify-between text-xs text-[#333]">
-        <span>LinkShort</span>
+        <img src="/logo.png" alt="LinkShort" className="h-5 opacity-40" />
         <a
           href="https://github.com/lesdavils/link-shortener"
           target="_blank"
