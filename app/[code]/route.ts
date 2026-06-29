@@ -9,19 +9,13 @@ export async function GET(
 
   const { data: link } = await supabase
     .from('links')
-    .select('id, original_url')
+    .select('original_url')
     .eq('short_code', code)
     .single()
 
   if (!link) {
-    return NextResponse.redirect(new URL('/?error=not_found', request.url))
+    return NextResponse.redirect(new URL('/', request.url))
   }
-
-  await supabase.from('clicks').insert({
-    link_id: link.id,
-    user_agent: request.headers.get('user-agent'),
-    referrer: request.headers.get('referer'),
-  })
 
   return NextResponse.redirect(link.original_url)
 }

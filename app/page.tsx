@@ -2,19 +2,6 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Link from 'next/link'
-
-const features = [
-  { n: '01', title: 'Instantané', desc: 'Vos liens raccourcis en moins d\'une seconde, sans friction.' },
-  { n: '02', title: 'Analytics', desc: 'Chaque clic tracé — dates, referrers, user-agents.' },
-  { n: '03', title: 'Open Source', desc: 'Code ouvert. Auditez, forkez, déployez où vous voulez.' },
-]
-
-const fadeIn = (delay = 0) => ({
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  transition: { duration: 0.6, delay },
-})
 
 export default function Home() {
   const [url, setUrl] = useState('')
@@ -63,58 +50,57 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#0c0c0c] text-[#e8e8e8] flex flex-col">
 
-      {/* ── Navbar ── */}
+      {/* Nav */}
       <nav className="flex items-center justify-between px-8 py-6 max-w-5xl mx-auto w-full">
         <span className="text-sm font-semibold tracking-wide text-white">LinkShort</span>
-        <div className="flex items-center gap-8 text-sm text-[#666]">
-          <a
-            href="https://github.com/lesdavils/link-shortener"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#e8e8e8] transition-colors"
-          >
-            GitHub
-          </a>
-          <Link href="/dashboard" className="hover:text-[#e8e8e8] transition-colors">
-            Dashboard
-          </Link>
-        </div>
+        <a
+          href="https://github.com/lesdavils/link-shortener"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-[#444] hover:text-[#888] transition-colors"
+        >
+          GitHub
+        </a>
       </nav>
 
       <div className="h-px bg-[#1a1a1a] max-w-5xl mx-auto w-full" />
 
-      {/* ── Hero ── */}
-      <main className="flex-1 max-w-5xl mx-auto w-full px-8 pt-20 pb-16">
+      {/* Hero */}
+      <main className="flex-1 max-w-5xl mx-auto w-full px-8 pt-20 pb-16 flex flex-col justify-center">
 
         <motion.p
-          {...fadeIn(0)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
           className="text-xs text-[#444] tracking-[0.2em] uppercase mb-10"
         >
           URL Shortener
         </motion.p>
 
         <motion.h1
-          {...fadeIn(0.1)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className="text-[clamp(3rem,8vw,6.5rem)] leading-[1] tracking-tight mb-2 font-extralight text-[#e8e8e8]"
         >
           Raccourcissez
         </motion.h1>
         <motion.h1
-          {...fadeIn(0.2)}
-          className="text-[clamp(3rem,8vw,6.5rem)] leading-[1] tracking-tight mb-10 font-bold text-white"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="text-[clamp(3rem,8vw,6.5rem)] leading-[1] tracking-tight mb-12 font-bold text-white"
         >
           n&apos;importe quel lien.
         </motion.h1>
 
-        <motion.p
-          {...fadeIn(0.3)}
-          className="text-[#555] text-base max-w-xs leading-relaxed mb-12"
+        {/* Input */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="max-w-lg"
         >
-          Transformez vos longues URLs en liens courts et suivez chaque clic en temps réel.
-        </motion.p>
-
-        {/* ── Input ── */}
-        <motion.div {...fadeIn(0.4)} className="max-w-lg">
           <div className="flex border border-[#222] rounded-xl overflow-hidden bg-[#0f0f0f] focus-within:border-[#333] transition-colors duration-200">
             <input
               type="url"
@@ -175,7 +161,6 @@ export default function Home() {
             {showCustom ? '− Annuler' : '+ Personnaliser le lien'}
           </button>
 
-          {/* Error */}
           <AnimatePresence>
             {error && (
               <motion.p
@@ -190,7 +175,6 @@ export default function Home() {
             )}
           </AnimatePresence>
 
-          {/* Result */}
           <AnimatePresence>
             {shortCode && (
               <motion.div
@@ -221,23 +205,6 @@ export default function Home() {
         </motion.div>
       </main>
 
-      {/* ── Features ── */}
-      <div className="h-px bg-[#1a1a1a] max-w-5xl mx-auto w-full" />
-
-      <section className="max-w-5xl mx-auto w-full px-8 py-12">
-        {features.map((f) => (
-          <div
-            key={f.n}
-            className="flex items-baseline gap-8 py-5 border-b border-[#141414] last:border-0"
-          >
-            <span className="font-mono text-[11px] text-[#2e2e2e] w-6 shrink-0">{f.n}</span>
-            <span className="text-sm text-[#888] w-28 shrink-0">{f.title}</span>
-            <span className="text-sm text-[#444]">{f.desc}</span>
-          </div>
-        ))}
-      </section>
-
-      {/* ── Footer ── */}
       <div className="h-px bg-[#1a1a1a] max-w-5xl mx-auto w-full" />
       <footer className="max-w-5xl mx-auto w-full px-8 py-5 flex items-center justify-between text-xs text-[#333]">
         <span>LinkShort</span>
