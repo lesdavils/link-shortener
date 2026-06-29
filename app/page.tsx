@@ -52,7 +52,7 @@ export default function Home() {
 
       {/* Nav */}
       <nav className="flex items-center justify-between px-8 py-6 max-w-5xl mx-auto w-full">
-        <img src="/logo.png" alt="LinkShort" className="h-12" />
+        <img src="/logo.png" alt="LinkShort" className="h-16" />
         <a
           href="https://github.com/lesdavils/link-shortener"
           target="_blank"
