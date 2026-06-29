@@ -30,6 +30,8 @@ const fadeUp = (delay = 0) => ({
 
 export default function Home() {
   const [url, setUrl] = useState('')
+  const [customCode, setCustomCode] = useState('')
+  const [showCustom, setShowCustom] = useState(false)
   const [shortCode, setShortCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -44,7 +46,7 @@ export default function Home() {
     const res = await fetch('/api/shorten', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url }),
+      body: JSON.stringify({ url, customCode: customCode.trim() || undefined }),
     })
 
     const data = await res.json()
@@ -56,6 +58,8 @@ export default function Home() {
     }
 
     setShortCode(data.short_code)
+    setCustomCode('')
+    setShowCustom(false)
   }
 
   const shortUrl = shortCode
@@ -156,7 +160,42 @@ export default function Home() {
                 ) : 'Raccourcir →'}
               </button>
             </div>
+
+            <AnimatePresence>
+              {showCustom && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.25, ease: 'easeInOut' }}
+                  className="overflow-hidden"
+                >
+                  <div className="flex items-center gap-2 pt-2 border-t border-white/5 mt-2 px-2 pb-1">
+                    <span className="text-xs text-gray-500 shrink-0">
+                      {typeof window !== 'undefined' ? window.location.host : 'localhost:3000'}/
+                    </span>
+                    <input
+                      type="text"
+                      value={customCode}
+                      onChange={(e) => setCustomCode(e.target.value.replace(/[^a-zA-Z0-9_-]/g, ''))}
+                      onKeyDown={(e) => e.key === 'Enter' && shorten()}
+                      placeholder="mon-lien"
+                      maxLength={20}
+                      className="flex-1 bg-transparent text-sm focus:outline-none placeholder-gray-600 text-indigo-300 font-mono"
+                    />
+                    <span className="text-xs text-gray-600">{customCode.length}/20</span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
+
+          <button
+            onClick={() => { setShowCustom(v => !v); setCustomCode('') }}
+            className="mt-2 text-xs text-gray-600 hover:text-indigo-400 transition-colors flex items-center gap-1 mx-auto"
+          >
+            <span>{showCustom ? '✕ Annuler' : '✦ Personnaliser le lien court'}</span>
+          </button>
 
           <AnimatePresence>
             {error && (
