@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #030712;
-  --foreground: #f1f5f9;
+  --background: #0c0c0c;
+  --foreground: #e8e8e8;
 }
 
 @theme inline {
@@ -16,6 +16,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── Aurora blobs ── */
